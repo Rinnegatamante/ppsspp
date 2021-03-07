@@ -427,6 +427,8 @@ int SDLGLGraphicsContext::Init(SDL_Window *&window, int x, int y, int mode, std:
 			eglSwapBuffers(g_eglDisplay, g_eglSurface);
 		else
 			SDL_GL_SwapWindow(window_);
+#elif defined(VITA)
+		vglSwapBuffers(GL_FALSE);
 #else
 		SDL_GL_SwapWindow(window_);
 #endif

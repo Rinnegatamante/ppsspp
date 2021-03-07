@@ -18,7 +18,7 @@
 #include "../gfx/gl_common.h"
 
 #if defined(USING_GLES2)
-#if !PPSSPP_PLATFORM(IOS)
+#if !PPSSPP_PLATFORM(IOS) && !PPSSPP_PLATFORM(VITA)
 #include "EGL/egl.h"
 
 GLboolean gl3stubInit() {

@@ -31,7 +31,7 @@ PFNGLBINDVERTEXARRAYOESPROC glBindVertexArrayOES;
 PFNGLDELETEVERTEXARRAYSOESPROC glDeleteVertexArraysOES;
 PFNGLISVERTEXARRAYOESPROC glIsVertexArrayOES;
 #endif
-#ifndef IOS
+#if !defined(IOS) && !defined(VITA)
 #include "EGL/egl.h"
 #endif
 #endif
@@ -224,7 +224,7 @@ void CheckGLExtensions() {
 		// Most of it could be enabled on lower GPUs as well, but let's start this way.
 		if (gl_extensions.VersionGEThan(4, 3, 0)) {
 			gl_extensions.GLES3 = true;
-#ifdef USING_GLES2
+#if defined(USING_GLES2) && !defined(VITA)
 			// Try to load up the other funcs if we're not using glew.
 			gl3stubInit();
 #endif
@@ -255,6 +255,9 @@ void CheckGLExtensions() {
 
 		// If the above didn't give us a version, or gave us a crazy version, fallback.
 #ifdef USING_GLES2
+#ifdef VITA
+		gl_extensions.GLES3 = false;
+#else
 		if (gl_extensions.ver[0] < 3 || gl_extensions.ver[0] > 5) {
 			// Try to load GLES 3.0 only if "3.0" found in version
 			// This simple heuristic avoids issues on older devices where you can only call eglGetProcAddress a limited
@@ -282,6 +285,7 @@ void CheckGLExtensions() {
 				gl_extensions.GLES3 = gl3stubInit();
 			}
 		}
+#endif
 #else
 		// If we have GLEW/similar, assume GLES3 loaded.
 		gl_extensions.GLES3 = gl_extensions.ver[0] >= 3;
@@ -452,9 +456,11 @@ void CheckGLExtensions() {
 	}
 	ParseExtensionsString(g_all_egl_extensions, g_set_egl_extensions);
 #endif
-
+#ifdef VITA
+	gl_extensions.maxVertexTextureUnits = 0;
+#else
 	glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &gl_extensions.maxVertexTextureUnits);
-
+#endif
 #ifdef GL_LOW_FLOAT
 	// This is probably a waste of time, implementations lie.
 	if (gl_extensions.IsGLES || g_set_gl_extensions.count("GL_ARB_ES2_compatibility") || gl_extensions.VersionGEThan(4, 1)) {

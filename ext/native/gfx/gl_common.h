@@ -3,6 +3,8 @@
 #ifdef IOS
 #include <OpenGLES/ES3/gl.h>
 #include <OpenGLES/ES3/glext.h>
+#elif defined(VITA)
+#include <vitaGL.h>
 #elif defined(USING_GLES2)
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
@@ -22,7 +24,9 @@ typedef char GLchar;
 #ifdef USING_GLES2
 // Support OpenGL ES 3.0
 // This uses the "DYNAMIC" approach from the gles3jni NDK sample.
+#ifndef VITA
 #include "../gfx_es2/gl3stub.h"
+#endif
 #endif
 
 

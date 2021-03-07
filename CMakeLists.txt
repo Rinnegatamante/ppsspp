@@ -172,7 +172,7 @@ if(VITA)
 	add_compile_options(-mtune=cortex-a9 -march=armv7-a -mfpu=neon -mfloat-abi=hard)
 	add_definitions(-DVITA -D__VITA__)
 	add_definitions(-D_PSP2_NET_NET_H_)
-	set(USING_EGL ON)
+	set(USING_EGL OFF)
 	set(USING_GLES2 ON)
 	set(WIIU ON) # avoid pthread error in armips
 	set(USE_DISCORD OFF)
@@ -2035,7 +2035,9 @@ if(VITA)
 		vita2d
 		taihen_stub
 		kubridge_stub
-		libScePiglet_stub
+		vitaShaRK
+		mathneon
+		vitaGL
 		SceShaccCg_stub
 		SceAppMgr_stub
 		SceDisplay_stub

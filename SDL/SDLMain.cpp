@@ -15,11 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <pib.h>
-
 #define PATH_MAX 4096
-
-int sceLibcHeapSize = 4 * 1024 * 1024;
 
 // 256mb is too much
 int _newlib_heap_size_user = 192 * 1024 * 1024;
@@ -519,7 +515,7 @@ int main(int argc, char *argv[]) {
 	}
 
 #ifdef VITA
-	pibInit(PIB_SHACCCG);
+	vglInitExtended(0, 960, 544, 16 * 1024 * 1024, SCE_GXM_MULTISAMPLE_4X);
 #endif
 
 #ifdef HAVE_LIBNX

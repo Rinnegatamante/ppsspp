@@ -597,7 +597,7 @@ public:
 		curProgram_ = program;
 #endif
 	}
-
+#ifndef VITA
 	void BindPixelPackBuffer(GLRBuffer *buffer) {  // Want to support an offset but can't in ES 2.0. We supply an offset when binding the buffers instead.
 		_dbg_assert_(G3D, curRenderStep_ && curRenderStep_->stepType == GLRStepType::RENDER);
 		GLRRenderData data{ GLRRenderCommand::BIND_BUFFER };
@@ -605,7 +605,7 @@ public:
 		data.bind_buffer.target = GL_PIXEL_PACK_BUFFER;
 		curRenderStep_->commands.push_back(data);
 	}
-
+#endif
 	void BindIndexBuffer(GLRBuffer *buffer) {  // Want to support an offset but can't in ES 2.0. We supply an offset when binding the buffers instead.
 		_dbg_assert_(G3D, curRenderStep_ && curRenderStep_->stepType == GLRStepType::RENDER);
 		GLRRenderData data{ GLRRenderCommand::BIND_BUFFER};

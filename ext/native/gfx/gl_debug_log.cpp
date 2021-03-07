@@ -22,7 +22,9 @@ std::string GLEnumToString(uint16_t value) {
 	case GL_UNSIGNED_INT_8_8_8_8_REV: return "GL_UNSIGNED_INT_8_8_8_8_REV";
 #endif
 	case GL_OUT_OF_MEMORY: return "GL_OUT_OF_MEMORY";
+#ifndef VITA
 	case GL_PACK_ALIGNMENT: return "GL_PACK_ALIGNMENT";
+#endif
 	case GL_INVALID_ENUM: return "GL_INVALID_ENUM";
 	case GL_INVALID_VALUE: return "GL_INVALID_VALUE";
 	case GL_INVALID_OPERATION: return "GL_INVALID_OPERATION";

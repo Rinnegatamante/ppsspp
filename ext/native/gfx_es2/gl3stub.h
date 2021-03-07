@@ -47,7 +47,7 @@ extern "C" {
  * otherwise. */
 GLboolean gl3stubInit();
 
-#if !PPSSPP_PLATFORM(IOS)
+#if !PPSSPP_PLATFORM(IOS) && !PPSSPP_PLATFORM(VITA)
     
 /*-------------------------------------------------------------------------
  * Data type definitions

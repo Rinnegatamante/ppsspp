@@ -51,16 +51,23 @@ static const unsigned short blendFactorToGL[] = {
 	GL_ONE_MINUS_SRC_ALPHA,
 	GL_DST_ALPHA,
 	GL_ONE_MINUS_DST_ALPHA,
+#ifdef VITA
+	GL_INVALID_ENUM,
+	GL_INVALID_ENUM,
+	GL_INVALID_ENUM,
+	GL_INVALID_ENUM,
+#else
 	GL_CONSTANT_COLOR,
 	GL_ONE_MINUS_CONSTANT_COLOR,
 	GL_CONSTANT_ALPHA,
 	GL_ONE_MINUS_CONSTANT_ALPHA,
+#endif
 #if !defined(USING_GLES2)   // TODO: Remove when we have better headers
 	GL_SRC1_COLOR,
 	GL_ONE_MINUS_SRC1_COLOR,
 	GL_SRC1_ALPHA,
 	GL_ONE_MINUS_SRC1_ALPHA,
-#elif !defined(IOS)
+#elif !defined(IOS) && !defined(VITA)
 	GL_SRC1_COLOR_EXT,
 	GL_ONE_MINUS_SRC1_COLOR_EXT,
 	GL_SRC1_ALPHA_EXT,
@@ -630,12 +637,16 @@ GLuint TypeToTarget(TextureType type) {
 	case TextureType::LINEAR1D: return GL_TEXTURE_1D;
 #endif
 	case TextureType::LINEAR2D: return GL_TEXTURE_2D;
+#ifndef USING_GLES2
 	case TextureType::LINEAR3D: return GL_TEXTURE_3D;
+#endif
+#ifndef VITA
 	case TextureType::CUBE: return GL_TEXTURE_CUBE_MAP;
+#endif
 #ifndef USING_GLES2
 	case TextureType::ARRAY1D: return GL_TEXTURE_1D_ARRAY;
-#endif
 	case TextureType::ARRAY2D: return GL_TEXTURE_2D_ARRAY;
+#endif
 	default:
 		ELOG("Bad texture type %d", (int)type);
 		return GL_NONE;
